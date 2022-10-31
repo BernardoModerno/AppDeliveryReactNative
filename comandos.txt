@@ -1,0 +1,4 @@
+npx create-expo-app --template
+AppDeliveryReactNative
+npm run android
+expo start
