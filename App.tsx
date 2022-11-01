@@ -23,7 +23,12 @@ const App = () => {
           name="HomeScreen"
           component={HomeScreen}
         />
-        <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+        <Stack.Screen name="RegisterScreen"
+         component={RegisterScreen}
+         options={{
+          headerShown: true,
+          title:'Novo Usuário'
+         }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
