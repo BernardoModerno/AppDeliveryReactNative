@@ -6,12 +6,20 @@ import {
   Text,
   TextInput,
   ToastAndroid,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
+
+import { RootStackParamList } from '../../../App';
 import { RoundedButton } from '../../components/RoundedButton';
 
 export const HomeScreen = () => {
+
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
     return (
     <View style={styles.container}>
         <Image
@@ -58,7 +66,9 @@ export const HomeScreen = () => {
 
         <View style={ styles.formRegister }>
             <Text>Não tem conta?</Text>
-            <Text style={ styles.formRegisterText }>Registrar-se</Text>
+            <TouchableOpacity onPress={ () => navigation.navigate('RegisterScreen') } >
+                <Text style={ styles.formRegisterText }>Registrar-se</Text>
+            </TouchableOpacity>
         </View>
 
         </View>

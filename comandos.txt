@@ -4,4 +4,5 @@ npm run android
 expo start
 npm install @react-navigation/native @react-navigation/native-stack
 expo install react-native-screens react-native-safe-area-context
+npm i @react-navigation/stack
 
