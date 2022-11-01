@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   View,
 } from 'react-native';
 
@@ -50,7 +51,7 @@ export default function App() {
         </View>
 
         <View style={{ marginTop: 30 }}>
-           <RoundedButton text='LOGIN' />
+           <RoundedButton text='LOGIN' onPress={ () => ToastAndroid.show('Olá', ToastAndroid.SHORT) } />
         </View>
 
         <View style={ styles.formRegister }>
