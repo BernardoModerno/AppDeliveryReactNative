@@ -4,8 +4,6 @@ import {
   Image,
   StyleSheet,
   Text,
-  TextInput,
-  ToastAndroid,
   View,
 } from 'react-native';
 
@@ -13,9 +11,13 @@ import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParamList } from '../../../../App';
+import { CustomTextInput } from '../../components/CustomTextInput';
 import { RoundedButton } from '../../components/RoundedButton';
+import useViewModel from './ViewModel';
 
 export const RegisterScreen = () => {
+
+    const { name, lastname, email, image, phone, password, confirmPassword, onChange, register } = useViewModel();
 
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
@@ -36,82 +38,65 @@ export const RegisterScreen = () => {
             <View style={ styles.form }>
                <Text style={styles.formText} >Registrar-se:</Text>
 
-               <View style={styles.formInput} >
-                   <Image
-                       style={ styles.formIcon }
-                       source={ require('../../../../assets/user.png') }
-                   />
-                   <TextInput
-                       style={ styles.formTextInput }
-                       placeholder='Nome'
-                       keyboardType='default'
-                   />
-               </View>
+               <CustomTextInput 
+              placeholder='Nome'
+              keyboardType='default'
+              image={ require('../../../../assets/user.png') }
+              property='name'
+              onChangeText={ onChange }
+              value={ name }
+              />
 
-               <View style={styles.formInput} >
-                   <Image
-                       style={ styles.formIcon }
-                       source={ require('../../../../assets/my_user.png') }
-                   />
-                   <TextInput
-                       style={ styles.formTextInput }
-                       placeholder='Sobrenome'
-                       keyboardType='default'
-                   />
-               </View>
 
-               <View style={styles.formInput} >
-                   <Image
-                       style={ styles.formIcon }
-                       source={ require('../../../../assets/email.png') }
-                   />
-                   <TextInput
-                       style={ styles.formTextInput }
-                       placeholder='Email'
-                       keyboardType='email-address'
-                   />
-               </View>
+            <CustomTextInput 
+              placeholder='Sobrenome'
+              keyboardType='default'
+              image={ require('../../../../assets/my_user.png') }
+              property='lastname'
+              onChangeText={ onChange }
+              value={ lastname }
+              />
+            
+            <CustomTextInput 
+              placeholder='Email'
+              keyboardType='email-address'
+              image={ require('../../../../assets/email.png') }
+              property='email'
+              onChangeText={ onChange }
+              value={ email }
+              />
 
-               <View style={styles.formInput} >
-                   <Image
-                       style={ styles.formIcon }
-                       source={ require('../../../../assets/phone.png') }
-                   />
-                   <TextInput
-                       style={ styles.formTextInput }
-                       placeholder='Telefone'
-                       keyboardType='numeric'
-                   />
-               </View>
-       
-               <View style={styles.formInput} >
-                   <Image
-                       style={ styles.formIcon }
-                       source={ require('../../../../assets/password.png') }
-                   />
-                   <TextInput
-                       style={ styles.formTextInput }
-                       placeholder='Senha'
-                       keyboardType='default'
-                       secureTextEntry={true}
-                   />
-               </View>
-
-               <View style={styles.formInput} >
-                   <Image
-                       style={ styles.formIcon }
-                       source={ require('../../../../assets/confirm_password.png') }
-                   />
-                   <TextInput
-                       style={ styles.formTextInput }
-                       placeholder='Confirmar Senha'
-                       keyboardType='default'
-                       secureTextEntry={true}
-                   />
-               </View>
+            <CustomTextInput 
+              placeholder='Telefone'
+              keyboardType='numeric'
+              image={ require('../../../../assets/phone.png') }
+              property='phone'
+              onChangeText={ onChange }
+              value={ phone }
+              />
+            
+            <CustomTextInput 
+              placeholder='Senha'
+              keyboardType='default'
+              image={ require('../../../../assets/password.png') }
+              property='password'
+              onChangeText={ onChange }
+              value={ password }
+              secureTextEntry={ true }
+              />
+            
+            <CustomTextInput 
+              placeholder='Confirmar Senha'
+              keyboardType='default'
+              image={ require('../../../../assets/confirm_password.png') }
+              property='confirmPassword'
+              onChangeText={ onChange }
+              value={ confirmPassword }
+              secureTextEntry={ true }
+              />
        
                <View style={{ marginTop: 30 }}>
-                   <RoundedButton text='CONFIRMAR' onPress={ () => ToastAndroid.show('Olá', ToastAndroid.SHORT) } />
+                   <RoundedButton text='CONFIRMAR' onPress={ () => register() } />
                </View>
     
             </View>
