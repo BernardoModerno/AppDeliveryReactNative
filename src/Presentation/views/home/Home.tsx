@@ -4,7 +4,6 @@ import {
   Image,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -13,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParamList } from '../../../../App';
+import { CustomTextInput } from '../../components/CustomTextInput';
 import { RoundedButton } from '../../components/RoundedButton';
 import useViewModel from './ViewModel';
 
@@ -37,34 +37,25 @@ export const HomeScreen = () => {
         </View>
         <View style={ styles.form }>
            <Text style={styles.formText} >Entrar:</Text>
-           <View style={styles.formInput} >
-               <Image
-                   style={ styles.formIcon }
-                   source={ require('../../../../assets/email.png') }
-               />
-               <TextInput
-                   style={ styles.formTextInput }
-                   placeholder='Email'
-                   keyboardType='email-address'
-                   value={ email }
-                   onChangeText={ text => onChange('email', text) }
-               />
-           </View>
-   
-           <View style={styles.formInput} >
-               <Image
-                   style={ styles.formIcon }
-                   source={ require('../../../../assets/password.png') }
-               />
-               <TextInput
-                   style={ styles.formTextInput }
-                   placeholder='Senha'
-                   keyboardType='default'
-                   secureTextEntry={true}
-                   value={ password }
-                   onChangeText={ text => onChange('password', text) }
-               />
-           </View>
+
+           <CustomTextInput 
+                image={ require('../../../../assets/email.png') }
+                placeholder='Email'
+                keyboardType='email-address'
+                property='email'
+                onChangeText={ onChange }
+                value={ email }
+            />
+        
+            <CustomTextInput 
+                image={ require('../../../../assets/password.png') }
+                placeholder='Senha'
+                keyboardType='default'
+                property='password'
+                onChangeText={ onChange }
+                value={ password }
+                secureTextEntry={ true }
+            />
    
            <View style={{ marginTop: 30 }}>
                <RoundedButton text='LOGIN' onPress={ () => {
