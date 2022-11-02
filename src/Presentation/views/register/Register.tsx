@@ -12,7 +12,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
-import { RootStackParamList } from '../../../App';
+import { RootStackParamList } from '../../../../App';
 import { RoundedButton } from '../../components/RoundedButton';
 
 export const RegisterScreen = () => {
@@ -23,12 +23,12 @@ export const RegisterScreen = () => {
 
         <View style={styles.container}>
             <Image
-            source={ require('../../../assets/chef.jpg') } 
+            source={ require('../../../../assets/chef.jpg') } 
             style={ styles.imageBackground }
             />
             <View style={styles.logoContainer}>
               <Image
-                  source={ require('../../../assets/user_image.png') }
+                  source={ require('../../../../assets/user_image.png') }
                   style={ styles.logoImage }
               />
               <Text style={ styles.logoText } >Selecione uma imagem</Text>
@@ -39,7 +39,7 @@ export const RegisterScreen = () => {
                <View style={styles.formInput} >
                    <Image
                        style={ styles.formIcon }
-                       source={ require('../../../assets/user.png') }
+                       source={ require('../../../../assets/user.png') }
                    />
                    <TextInput
                        style={ styles.formTextInput }
@@ -51,7 +51,7 @@ export const RegisterScreen = () => {
                <View style={styles.formInput} >
                    <Image
                        style={ styles.formIcon }
-                       source={ require('../../../assets/my_user.png') }
+                       source={ require('../../../../assets/my_user.png') }
                    />
                    <TextInput
                        style={ styles.formTextInput }
@@ -63,7 +63,7 @@ export const RegisterScreen = () => {
                <View style={styles.formInput} >
                    <Image
                        style={ styles.formIcon }
-                       source={ require('../../../assets/email.png') }
+                       source={ require('../../../../assets/email.png') }
                    />
                    <TextInput
                        style={ styles.formTextInput }
@@ -75,7 +75,7 @@ export const RegisterScreen = () => {
                <View style={styles.formInput} >
                    <Image
                        style={ styles.formIcon }
-                       source={ require('../../../assets/phone.png') }
+                       source={ require('../../../../assets/phone.png') }
                    />
                    <TextInput
                        style={ styles.formTextInput }
@@ -87,7 +87,7 @@ export const RegisterScreen = () => {
                <View style={styles.formInput} >
                    <Image
                        style={ styles.formIcon }
-                       source={ require('../../../assets/password.png') }
+                       source={ require('../../../../assets/password.png') }
                    />
                    <TextInput
                        style={ styles.formTextInput }
@@ -100,7 +100,7 @@ export const RegisterScreen = () => {
                <View style={styles.formInput} >
                    <Image
                        style={ styles.formIcon }
-                       source={ require('../../../assets/confirm_password.png') }
+                       source={ require('../../../../assets/confirm_password.png') }
                    />
                    <TextInput
                        style={ styles.formTextInput }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   Image,
@@ -12,25 +12,25 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
-import { RootStackParamList } from '../../../App';
+import { RootStackParamList } from '../../../../App';
 import { RoundedButton } from '../../components/RoundedButton';
+import useViewModel from './ViewModel';
 
 export const HomeScreen = () => {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const { email, password, onChange } = useViewModel();
 
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
     return (
     <View style={styles.container}>
         <Image
-        source={ require('../../../assets/chef.jpg') } 
+        source={ require('../../../../assets/chef.jpg') } 
         style={ styles.imageBackground }
         />
         <View style={styles.logoContainer}>
           <Image
-              source={ require('../../../assets/logo.png') }
+              source={ require('../../../../assets/logo.png') }
               style={ styles.logoImage }
           />
           <Text style={ styles.logoText } >FOOD APP</Text>
@@ -40,21 +40,21 @@ export const HomeScreen = () => {
            <View style={styles.formInput} >
                <Image
                    style={ styles.formIcon }
-                   source={ require('../../../assets/email.png') }
+                   source={ require('../../../../assets/email.png') }
                />
                <TextInput
                    style={ styles.formTextInput }
                    placeholder='Email'
                    keyboardType='email-address'
                    value={ email }
-                   onChangeText={ text => setEmail(text) }
+                   onChangeText={ text => onChange('email', text) }
                />
            </View>
    
            <View style={styles.formInput} >
                <Image
                    style={ styles.formIcon }
-                   source={ require('../../../assets/password.png') }
+                   source={ require('../../../../assets/password.png') }
                />
                <TextInput
                    style={ styles.formTextInput }
@@ -62,7 +62,7 @@ export const HomeScreen = () => {
                    keyboardType='default'
                    secureTextEntry={true}
                    value={ password }
-                   onChangeText={ text => setPassword(text) }
+                   onChangeText={ text => onChange('password', text) }
                />
            </View>
    
