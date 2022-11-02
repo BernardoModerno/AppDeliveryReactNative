@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Image,
   StyleSheet,
   Text,
   TextInput,
-  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -18,6 +17,9 @@ import { RoundedButton } from '../../components/RoundedButton';
 
 export const HomeScreen = () => {
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
     return (
@@ -27,49 +29,56 @@ export const HomeScreen = () => {
         style={ styles.imageBackground }
         />
         <View style={styles.logoContainer}>
-        <Image
-            source={ require('../../../assets/logo.png') }
-            style={ styles.logoImage }
-        />
-        <Text style={ styles.logoText } >FOOD APP</Text>
+          <Image
+              source={ require('../../../assets/logo.png') }
+              style={ styles.logoImage }
+          />
+          <Text style={ styles.logoText } >FOOD APP</Text>
         </View>
         <View style={ styles.form }>
-        <Text style={styles.formText} >Entrar:</Text>
-        <View style={styles.formInput} >
-            <Image
-                style={ styles.formIcon }
-                source={ require('../../../assets/email.png') }
-            />
-            <TextInput
-                style={ styles.formTextInput }
-                placeholder='Email'
-                keyboardType='email-address'
-            />
-        </View>
-
-        <View style={styles.formInput} >
-            <Image
-                style={ styles.formIcon }
-                source={ require('../../../assets/password.png') }
-            />
-            <TextInput
-                style={ styles.formTextInput }
-                placeholder='Senha'
-                keyboardType='default'
-                secureTextEntry={true}
-            />
-        </View>
-
-        <View style={{ marginTop: 30 }}>
-            <RoundedButton text='LOGIN' onPress={ () => ToastAndroid.show('Olá', ToastAndroid.SHORT) } />
-        </View>
-
-        <View style={ styles.formRegister }>
-            <Text>Não tem conta?</Text>
-            <TouchableOpacity onPress={ () => navigation.navigate('RegisterScreen') } >
-                <Text style={ styles.formRegisterText }>Registrar-se</Text>
-            </TouchableOpacity>
-        </View>
+           <Text style={styles.formText} >Entrar:</Text>
+           <View style={styles.formInput} >
+               <Image
+                   style={ styles.formIcon }
+                   source={ require('../../../assets/email.png') }
+               />
+               <TextInput
+                   style={ styles.formTextInput }
+                   placeholder='Email'
+                   keyboardType='email-address'
+                   value={ email }
+                   onChangeText={ text => setEmail(text) }
+               />
+           </View>
+   
+           <View style={styles.formInput} >
+               <Image
+                   style={ styles.formIcon }
+                   source={ require('../../../assets/password.png') }
+               />
+               <TextInput
+                   style={ styles.formTextInput }
+                   placeholder='Senha'
+                   keyboardType='default'
+                   secureTextEntry={true}
+                   value={ password }
+                   onChangeText={ text => setPassword(text) }
+               />
+           </View>
+   
+           <View style={{ marginTop: 30 }}>
+               <RoundedButton text='LOGIN' onPress={ () => {
+                console.log('Email: ' + email);
+                console.log('Password: ' + password);
+               } } />
+           </View>
+   
+           <View style={ styles.formRegister }>
+               <Text>Não tem conta?</Text>
+               <TouchableOpacity onPress={ () => navigation.navigate('RegisterScreen') } >
+                   <Text style={ styles.formRegisterText }>Registrar-se</Text>
+               </TouchableOpacity>
+           </View>
 
         </View>
     </View>
