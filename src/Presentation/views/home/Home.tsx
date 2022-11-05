@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   Image,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -18,9 +19,15 @@ import useViewModel from './ViewModel';
 
 export const HomeScreen = () => {
 
-    const { email, password, onChange } = useViewModel();
+    const { email, password, onChange, errorMessage, login } = useViewModel();
 
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+    useEffect(() => {
+        if (errorMessage !== '') {
+            ToastAndroid.show(errorMessage, ToastAndroid.LONG);
+        }
+    }, [errorMessage])
 
     return (
     <View style={styles.container}>
@@ -58,10 +65,7 @@ export const HomeScreen = () => {
             />
    
            <View style={{ marginTop: 30 }}>
-               <RoundedButton text='LOGIN' onPress={ () => {
-                console.log('Email: ' + email);
-                console.log('Password: ' + password);
-               } } />
+                <RoundedButton text='LOGIN' onPress={ () => login()} />
            </View>
    
            <View style={ styles.formRegister }>
