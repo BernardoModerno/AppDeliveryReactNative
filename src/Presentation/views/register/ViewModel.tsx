@@ -49,7 +49,7 @@ const RegisterViewModel = () => {
             return false;
         }
         if (values.confirmPassword === '') {
-            setErrorMessage('Entre com a confirmação de senha');
+            setErrorMessage('Entre com sua confirmação de senha');
             return false;
         }
         if (values.password !== values.confirmPassword) {

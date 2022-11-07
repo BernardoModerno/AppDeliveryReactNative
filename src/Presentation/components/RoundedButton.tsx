@@ -14,15 +14,14 @@ interface Props {
 }
 
 export const RoundedButton = ({ text, onPress }: Props) => {
-    return (
-        <TouchableOpacity
-            style={ styles.roundedButton }
-            onPress={() => onPress()}
-        >
-            <Text style={ styles.textButton } >{ text }</Text>
-
-        </TouchableOpacity>
-    )
+  return (
+    <TouchableOpacity
+        style={ styles.roundedButton }
+        onPress={() => onPress()}
+    >
+        <Text style={ styles.textButton }>{ text }</Text>
+    </TouchableOpacity>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -32,9 +31,10 @@ const styles = StyleSheet.create({
         backgroundColor: MyColors.primary,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 15,
+        borderRadius: 15
     },
     textButton: {
-        color: 'white'
+        color: 'white',
+        // fontWeight: 'bold'
     }
-})
+});

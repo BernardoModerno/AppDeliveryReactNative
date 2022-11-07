@@ -8,8 +8,7 @@ import {
   View,
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
-import type { StackNavigationProp } from '@react-navigation/stack';
+import { StackScreenProps } from '@react-navigation/stack';
 
 import { RootStackParamList } from '../../../../App';
 import { CustomTextInput } from '../../components/CustomTextInput';
@@ -17,35 +16,46 @@ import { RoundedButton } from '../../components/RoundedButton';
 import styles from './Styles';
 import useViewModel from './ViewModel';
 
-export const HomeScreen = () => {
+interface Props extends StackScreenProps<RootStackParamList, 'HomeScreen'>{};
 
-    const { email, password, onChange, errorMessage, login } = useViewModel();
+export const HomeScreen = ({navigation, route}: Props) => {
 
-    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-
+    const { email, password, errorMessage, onChange, login, user } = useViewModel();
+    
     useEffect(() => {
         if (errorMessage !== '') {
             ToastAndroid.show(errorMessage, ToastAndroid.LONG);
         }
     }, [errorMessage])
 
+    useEffect(() => {      
+        if (user?.id !== null && user?.id !== undefined) {
+            navigation.replace('ProfileInfoScreen');
+        }
+    }, [user])
+    
     return (
+    // COLUMN
     <View style={styles.container}>
         <Image
         source={ require('../../../../assets/chef.jpg') } 
         style={ styles.imageBackground }
         />
-        <View style={styles.logoContainer}>
-          <Image
-              source={ require('../../../../assets/logo.png') }
-              style={ styles.logoImage }
-          />
-          <Text style={ styles.logoText } >FOOD APP</Text>
-        </View>
-        <View style={ styles.form }>
-           <Text style={styles.formText} >Entrar:</Text>
 
-           <CustomTextInput 
+        <View style={ styles.logoContainer }>
+            <Image 
+                source={ require('../../../../assets/logo.png') }
+                style={ styles.logoImage }
+            />
+
+            <Text style={ styles.logoText }>FOOD APP</Text>
+        </View>
+
+        <View style={ styles.form }>
+
+            <Text style={ styles.formText }>Entrar:</Text>
+            
+            <CustomTextInput 
                 image={ require('../../../../assets/email.png') }
                 placeholder='Email'
                 keyboardType='email-address'
@@ -63,21 +73,25 @@ export const HomeScreen = () => {
                 value={ password }
                 secureTextEntry={ true }
             />
-   
-           <View style={{ marginTop: 30 }}>
+
+            <View style={{ marginTop: 30 }}>
+                
                 <RoundedButton text='LOGIN' onPress={ () => login()} />
-           </View>
-   
-           <View style={ styles.formRegister }>
-               <Text>Não tem conta?</Text>
-               <TouchableOpacity onPress={ () => navigation.navigate('RegisterScreen') } >
-                   <Text style={ styles.formRegisterText }>Registrar-se</Text>
-               </TouchableOpacity>
-           </View>
+
+            </View>
+
+            <View style={ styles.formRegister }>
+                <Text>Não tem conta?</Text>
+                
+                <TouchableOpacity onPress={ () => navigation.navigate('RegisterScreen') }>
+                    <Text style={ styles.formRegisterText }>Registrar-se</Text>
+                </TouchableOpacity>
+                
+            </View>
 
         </View>
+        
     </View>
     );
 }
-    
     

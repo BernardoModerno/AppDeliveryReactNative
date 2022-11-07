@@ -10,15 +10,15 @@ const HomeStyles = StyleSheet.create({
         height: '100%',
         opacity: 0.7,
         bottom: '30%'
-    }, 
+    },
     form: {
         width: '100%',
         height: '40%',
         backgroundColor: 'white',
         position: 'absolute',
         bottom: 0,
-        borderTopRightRadius: 40,
         borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
         padding: 30
     },
     formText: {
@@ -43,7 +43,7 @@ const HomeStyles = StyleSheet.create({
     formRegister: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 30,
+        marginTop: 30
     },
     formRegisterText: {
         fontStyle: 'italic',
@@ -69,7 +69,7 @@ const HomeStyles = StyleSheet.create({
         marginTop: 10,
         fontWeight: 'bold'
     },
-    
 });
+    
 
 export default HomeStyles;
