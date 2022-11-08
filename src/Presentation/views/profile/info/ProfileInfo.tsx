@@ -28,3 +28,4 @@ export const ProfileInfoScreen = ({navigation, route}: Props) => {
     </View>
   )
 }
+

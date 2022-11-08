@@ -1,22 +1,28 @@
-import React, { useEffect } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
 import {
   Image,
   ScrollView,
   Text,
   ToastAndroid,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
 import { CustomTextInput } from '../../components/CustomTextInput';
+import { ModalPickImage } from '../../components/ModalPickImage';
 import { RoundedButton } from '../../components/RoundedButton';
 import styles from './Styles';
 import useViewModel from './ViewModel';
 
 export const RegisterScreen = () => {
 
-  const { name, lastname, email, phone, password, confirmPassword, errorMessage, onChange, register } = useViewModel();
-  
+  const { name, lastname, email, image, phone, password, confirmPassword, errorMessage, onChange, register, pickImage, takePhoto } = useViewModel();
+  const [modalVisible, setModalVisible] = useState(false);
+
   useEffect(() => {
     if (errorMessage != '') {
       ToastAndroid.show(errorMessage, ToastAndroid.LONG);
@@ -33,12 +39,22 @@ export const RegisterScreen = () => {
           />
 
         <View style={ styles.logoContainer }>
-          <Image 
-              source={ require('../../../../assets/user_image.png') }
-              style={ styles.logoImage }
-          />
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            {
+              image == ''
+              ? <Image 
+                  source={ require('../../../../assets/user_image.png') }
+                  style={ styles.logoImage }
+              />
+              : <Image 
+                  source={{ uri: image }}
+                  style={ styles.logoImage }
+                />
+            }
+            
+          </TouchableOpacity>
 
-          <Text style={ styles.logoText }>SELECCIONE UMA IMAGEM</Text>
+          <Text style={ styles.logoText }>SELECIONE UMA IMAGEM</Text>
         </View>
 
         <View style={ styles.form }>
@@ -48,7 +64,7 @@ export const RegisterScreen = () => {
             <Text style={ styles.formText }>REGISTRAR-SE</Text>
 
             <CustomTextInput 
-              placeholder='Nome'
+              placeholder='Nomes'
               keyboardType='default'
               image={ require('../../../../assets/user.png') }
               property='name'
@@ -114,11 +130,22 @@ export const RegisterScreen = () => {
 
         </View>
         
+
+        <ModalPickImage
+          openGallery={ pickImage }
+          openCamera={ takePhoto }
+          modalUseState={ modalVisible }
+          setModalUseState={ setModalVisible }
+          />
     </View>
     );
 }
     
 // HOT RELOAD
+
+
+    
+
 
 
     

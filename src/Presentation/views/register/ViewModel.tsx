@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
+import * as ImagePicker from 'expo-image-picker';
+
 import {
-  RegisterAuthUseCase,
-} from '../../../Domain/useCases/auth/RegisterAuth';
+  RegisterWithImageAuthUseCase,
+} from '../../../Domain/useCases/auth/RegisterWithImageAuth';
 
 const RegisterViewModel = () => {
 
@@ -12,9 +14,37 @@ const RegisterViewModel = () => {
         lastname: '',
         phone: '',
         email: '',
+        image: '',
         password: '',
         confirmPassword: '',
     });
+    const [file, setFile] = useState<ImagePicker.ImageInfo>()
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            quality: 1
+        });
+
+        if (!result.cancelled) {
+            onChange('image', result.uri);
+            setFile(result);
+        }
+    }
+    
+    const takePhoto = async () => {
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            quality: 1
+        });
+
+        if (!result.cancelled) {
+            onChange('image', result.uri);
+            setFile(result);
+        }
+    }
 
     const onChange = (property: string, value: any) => {
         setValues({ ...values, [property]: value })
@@ -22,7 +52,8 @@ const RegisterViewModel = () => {
 
     const register = async () => {
         if (isValidForm()) {
-            const response = await RegisterAuthUseCase(values);
+            // const response = await RegisterAuthUseCase(values);
+            const response = await RegisterWithImageAuthUseCase(values, file!);
             console.log('RESULT: ' + JSON.stringify(response));        
         }
     }
@@ -56,6 +87,10 @@ const RegisterViewModel = () => {
             setErrorMessage('As senhas não coincidem');
             return false;
         }
+        if (values.image === '') {
+            setErrorMessage('Selecione uma imagem');
+            return false;
+        }
 
         return true;
     }
@@ -64,6 +99,8 @@ const RegisterViewModel = () => {
         ...values,
         onChange,
         register,
+        pickImage,
+        takePhoto,
         errorMessage
     }
 }

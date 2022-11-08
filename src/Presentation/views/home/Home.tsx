@@ -53,7 +53,7 @@ export const HomeScreen = ({navigation, route}: Props) => {
 
         <View style={ styles.form }>
 
-            <Text style={ styles.formText }>Entrar:</Text>
+            <Text style={ styles.formText }>Entrar</Text>
             
             <CustomTextInput 
                 image={ require('../../../../assets/email.png') }

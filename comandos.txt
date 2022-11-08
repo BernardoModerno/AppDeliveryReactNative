@@ -8,4 +8,6 @@ npm i @react-navigation/stack
 npx expo start
 npm i axios
 npm i @react-native-async-storage/async-storage
+npm i expo-image-picker
+npm i mime
 

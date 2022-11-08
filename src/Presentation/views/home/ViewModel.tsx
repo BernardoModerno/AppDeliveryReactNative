@@ -13,7 +13,7 @@ const HomeViewModel = () => {
         password: '',
     });
     const { user, getUserSession } = useUserLocal();
-    console.log('USUÁRIO DE SEÇÃO: ' + JSON.stringify(user));
+    console.log('USUARIO DE SEÇÃO: ' + JSON.stringify(user));
     
 
     const onChange = (property: string, value: any) => {
