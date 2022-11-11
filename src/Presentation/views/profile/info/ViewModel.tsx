@@ -1,6 +1,5 @@
-import {
-  RemoveUserLocalUseCase,
-} from '../../../../Domain/useCases/userLocal/RemoveUserLocal';
+import React from 'react'
+import { RemoveUserLocalUseCase } from '../../../../Domain/useCases/userLocal/RemoveUserLocal';
 
 const ProfileInfoViewModel = () => {
 
@@ -14,4 +13,3 @@ const ProfileInfoViewModel = () => {
 }
 
 export default ProfileInfoViewModel;
-

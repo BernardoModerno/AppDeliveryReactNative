@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 
 import {
+  ActivityIndicator,
   Image,
   ScrollView,
   Text,
@@ -12,15 +13,21 @@ import {
   View,
 } from 'react-native';
 
+import { StackScreenProps } from '@react-navigation/stack';
+
+import { RootStackParamList } from '../../../../App';
 import { CustomTextInput } from '../../components/CustomTextInput';
 import { ModalPickImage } from '../../components/ModalPickImage';
 import { RoundedButton } from '../../components/RoundedButton';
+import { MyColors } from '../../theme/AppTheme';
 import styles from './Styles';
 import useViewModel from './ViewModel';
 
-export const RegisterScreen = () => {
+interface Props extends StackScreenProps<RootStackParamList, 'RegisterScreen'>{};
 
-  const { name, lastname, email, image, phone, password, confirmPassword, errorMessage, onChange, register, pickImage, takePhoto } = useViewModel();
+export const RegisterScreen = ({navigation, route}: Props) => {
+
+  const { name, lastname, email, image, phone, password, confirmPassword, loading, errorMessage, user, onChange, register, pickImage, takePhoto } = useViewModel();
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -28,11 +35,18 @@ export const RegisterScreen = () => {
       ToastAndroid.show(errorMessage, ToastAndroid.LONG);
     }
   }, [errorMessage])
+
+  useEffect(() => {      
+    if (user?.id !== null && user?.id !== undefined) {
+        navigation.replace('ClientTabsNavigator');
+    }
+  }, [user])
   
 
   return (
     // COLUMN
     <View style={styles.container}>
+
         <Image
           source={ require('../../../../assets/chef.jpg') } 
           style={ styles.imageBackground }
@@ -64,7 +78,7 @@ export const RegisterScreen = () => {
             <Text style={ styles.formText }>REGISTRAR-SE</Text>
 
             <CustomTextInput 
-              placeholder='Nomes'
+              placeholder='Nome'
               keyboardType='default'
               image={ require('../../../../assets/user.png') }
               property='name'
@@ -137,15 +151,22 @@ export const RegisterScreen = () => {
           modalUseState={ modalVisible }
           setModalUseState={ setModalVisible }
           />
+
+        {
+          loading && 
+          <ActivityIndicator 
+            style={styles.loading} 
+            size="large" 
+            color={ MyColors.primary }  
+          />
+        }
+        
+
     </View>
     );
 }
     
 // HOT RELOAD
-
-
-    
-
 
 
     

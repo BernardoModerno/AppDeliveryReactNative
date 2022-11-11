@@ -30,7 +30,12 @@ export const HomeScreen = ({navigation, route}: Props) => {
 
     useEffect(() => {      
         if (user?.id !== null && user?.id !== undefined) {
-            navigation.replace('ProfileInfoScreen');
+            if (user.roles?.length! > 1) {
+                navigation.replace('RolesScreen');
+            }
+            else {
+                navigation.replace('ClientTabsNavigator');
+            }
         }
     }, [user])
     
@@ -53,7 +58,7 @@ export const HomeScreen = ({navigation, route}: Props) => {
 
         <View style={ styles.form }>
 
-            <Text style={ styles.formText }>Entrar</Text>
+            <Text style={ styles.formText }>ENTRAR</Text>
             
             <CustomTextInput 
                 image={ require('../../../../assets/email.png') }
