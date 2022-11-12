@@ -10,4 +10,8 @@ npm i axios
 npm i @react-native-async-storage/async-storage
 npm i expo-image-picker
 npm i mime
+npm install react-native-reanimated-carousel
+npm install --save react-native-gesture-handler
+npm install react-native-reanimated
+npm i @react-navigation/bottom-tabs
 
