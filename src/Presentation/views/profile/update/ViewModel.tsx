@@ -1,30 +1,30 @@
-import { useState } from 'react';
+import {
+  useContext,
+  useState,
+} from 'react';
 
 import * as ImagePicker from 'expo-image-picker';
 
 import {
-  RegisterWithImageAuthUseCase,
-} from '../../../Domain/useCases/auth/RegisterWithImageAuth';
+  ResponseApiDelivery,
+} from '../../../../Data/sources/remote/models/ResponseApiDelivery';
+import { User } from '../../../../Domain/entities/User';
+import { UpdateUserUseCase } from '../../../../Domain/useCases/user/UpdateUser';
 import {
-  SaveUserLocalUseCase,
-} from '../../../Domain/useCases/userLocal/SaveUserLocal';
-import { useUserLocal } from '../../hooks/useUserLocal';
+  UpdateWithImageUserUseCase,
+} from '../../../../Domain/useCases/user/UpdateWithImageUser';
+import { UserContext } from '../../../context/UserContext';
+import { useUserLocal } from '../../../hooks/useUserLocal';
 
-const RegisterViewModel = () => {
+const ProfileUpdateViewModel = (user: User) => {
 
     const [errorMessage, setErrorMessage] = useState('');
-    const [values, setValues] = useState({
-        name: '',
-        lastname: '',
-        phone: '',
-        email: '',
-        image: '',
-        password: '',
-        confirmPassword: '',
-    });
+    const [successMessage, setSuccessMessage] = useState('');
+    const [values, setValues] = useState(user);
     const [loading, setLoading] = useState(false);
     const [file, setFile] = useState<ImagePicker.ImageInfo>()
-    const { user, getUserSession } = useUserLocal();
+    const { getUserSession } = useUserLocal();
+    const { saveUserSession } = useContext( UserContext );
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -34,7 +34,7 @@ const RegisterViewModel = () => {
         });
 
         if (!result.cancelled) {
-            onChange('image', result.uri);
+            onChange('image', result.uri); // file://ksdajkaskj.png
             setFile(result);
         }
     }
@@ -55,17 +55,29 @@ const RegisterViewModel = () => {
     const onChange = (property: string, value: any) => {
         setValues({ ...values, [property]: value })
     }
+    
+    const onChangeInfoUpdate = (name: string, lastname: string, phone: string) => {
+        setValues({ ...values, name, lastname, phone})
+    }
 
-    const register = async () => {
+    const update = async () => {
         if (isValidForm()) {
             setLoading(true);
-            // const response = await RegisterAuthUseCase(values);
-            const response = await RegisterWithImageAuthUseCase(values, file!);
+            
+            let response  = {} as ResponseApiDelivery;
+
+            if (values.image?.includes('https://')) {
+                response = await UpdateUserUseCase(values);
+            }
+            else {
+                response = await UpdateWithImageUserUseCase(values, file!);
+            }
+            
             setLoading(false);
             console.log('RESULT: ' + JSON.stringify(response));        
             if (response.success) {
-                await SaveUserLocalUseCase(response.data);
-                getUserSession();
+                saveUserSession(response.data);
+                setSuccessMessage(response.message);
             }
             else {
                 setErrorMessage(response.message);
@@ -82,44 +94,26 @@ const RegisterViewModel = () => {
             setErrorMessage('Entre com seu sobrenome');
             return false;
         }
-        if (values.email === '') {
-            setErrorMessage('Entre com seu email');
-            return false;
-        }
         if (values.phone === '') {
             setErrorMessage('Entre com seu telefone');
             return false;
         }
-        if (values.password === '') {
-            setErrorMessage('Entre com sua senha');
-            return false;
-        }
-        if (values.confirmPassword === '') {
-            setErrorMessage('Entre com sua confirmação de senha');
-            return false;
-        }
-        if (values.password !== values.confirmPassword) {
-            setErrorMessage('As senhas não coinciden');
-            return false;
-        }
-        if (values.image === '') {
-            setErrorMessage('Selecione uma imagem');
-            return false;
-        }
-
+        
         return true;
     }
 
     return {
         ...values,
         onChange,
-        register,
+        update,
         pickImage,
         takePhoto,
+        onChangeInfoUpdate,
         errorMessage,
+        successMessage,
         loading,
         user
     }
 }
 
-export default RegisterViewModel;
+export default ProfileUpdateViewModel;

@@ -15,19 +15,20 @@ import {
 
 import { StackScreenProps } from '@react-navigation/stack';
 
-import { RootStackParamList } from '../../../../App';
-import { CustomTextInput } from '../../components/CustomTextInput';
-import { ModalPickImage } from '../../components/ModalPickImage';
-import { RoundedButton } from '../../components/RoundedButton';
-import { MyColors } from '../../theme/AppTheme';
+import { RootStackParamList } from '../../../../../App';
+import { CustomTextInput } from '../../../components/CustomTextInput';
+import { ModalPickImage } from '../../../components/ModalPickImage';
+import { RoundedButton } from '../../../components/RoundedButton';
+import { MyColors } from '../../../theme/AppTheme';
 import styles from './Styles';
 import useViewModel from './ViewModel';
 
-interface Props extends StackScreenProps<RootStackParamList, 'RegisterScreen'>{};
+interface Props extends StackScreenProps<RootStackParamList, 'ProfileUpdateScreen'>{};
 
-export const RegisterScreen = ({navigation, route}: Props) => {
+export const ProfileUpdateScreen = ({navigation, route}: Props) => {
 
-  const { name, lastname, email, image, phone, password, confirmPassword, loading, errorMessage, user, onChange, register, pickImage, takePhoto } = useViewModel();
+  const { user } = route.params;
+  const { name, lastname, image, phone, loading, errorMessage, successMessage, onChange, onChangeInfoUpdate, update, pickImage, takePhoto } = useViewModel(user);
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -35,20 +36,20 @@ export const RegisterScreen = ({navigation, route}: Props) => {
       ToastAndroid.show(errorMessage, ToastAndroid.LONG);
     }
   }, [errorMessage])
-
-  useEffect(() => {      
-    if (user?.id !== null && user?.id !== undefined) {
-        navigation.replace('ClientTabsNavigator');
-    }
-  }, [user])
   
+  useEffect(() => {
+    if (successMessage != '') {
+      ToastAndroid.show(successMessage, ToastAndroid.LONG);
+    }
+  }, [successMessage])
 
+ 
   return (
     // COLUMN
     <View style={styles.container}>
 
         <Image
-          source={ require('../../../../assets/chef.jpg') } 
+          source={ require('../../../../../assets/city.jpg') } 
           style={ styles.imageBackground }
           />
 
@@ -57,7 +58,7 @@ export const RegisterScreen = ({navigation, route}: Props) => {
             {
               image == ''
               ? <Image 
-                  source={ require('../../../../assets/user_image.png') }
+                  source={{ uri: user?.image }}
                   style={ styles.logoImage }
               />
               : <Image 
@@ -75,12 +76,12 @@ export const RegisterScreen = ({navigation, route}: Props) => {
 
           <ScrollView>
 
-            <Text style={ styles.formText }>REGISTRAR-SE</Text>
+            <Text style={ styles.formText }>ATUALIZAR</Text>
 
             <CustomTextInput 
-              placeholder='NomE'
+              placeholder='Nome'
               keyboardType='default'
-              image={ require('../../../../assets/user.png') }
+              image={ require('../../../../../assets/user.png') }
               property='name'
               onChangeText={ onChange }
               value={ name }
@@ -90,53 +91,25 @@ export const RegisterScreen = ({navigation, route}: Props) => {
             <CustomTextInput 
               placeholder='Sobrenome'
               keyboardType='default'
-              image={ require('../../../../assets/my_user.png') }
+              image={ require('../../../../../assets/my_user.png') }
               property='lastname'
               onChangeText={ onChange }
               value={ lastname }
               />
             
-            <CustomTextInput 
-              placeholder='Email'
-              keyboardType='email-address'
-              image={ require('../../../../assets/email.png') }
-              property='email'
-              onChangeText={ onChange }
-              value={ email }
-              />
-
+            
             <CustomTextInput 
               placeholder='Telefone'
               keyboardType='numeric'
-              image={ require('../../../../assets/phone.png') }
+              image={ require('../../../../../assets/phone.png') }
               property='phone'
               onChangeText={ onChange }
               value={ phone }
               />
-            
-            <CustomTextInput 
-              placeholder='Senha'
-              keyboardType='default'
-              image={ require('../../../../assets/password.png') }
-              property='password'
-              onChangeText={ onChange }
-              value={ password }
-              secureTextEntry={ true }
-              />
-            
-            <CustomTextInput 
-              placeholder='Confirmar Senha'
-              keyboardType='default'
-              image={ require('../../../../assets/confirm_password.png') }
-              property='confirmPassword'
-              onChangeText={ onChange }
-              value={ confirmPassword }
-              secureTextEntry={ true }
-              />
 
             <View style={{ marginTop: 30 }}>
                 
-                <RoundedButton text='CONFIRMAR' onPress={ () => register()} />
+                <RoundedButton text='CONFIRMAR' onPress={ () => update()} />
 
             </View>
 

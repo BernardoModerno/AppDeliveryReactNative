@@ -29,7 +29,7 @@ export const HomeScreen = ({navigation, route}: Props) => {
     }, [errorMessage])
 
     useEffect(() => {      
-        if (user?.id !== null && user?.id !== undefined) {
+        if (user?.id !== null && user?.id !== undefined && user?.id !== '') {
             if (user.roles?.length! > 1) {
                 navigation.replace('RolesScreen');
             }
@@ -43,8 +43,8 @@ export const HomeScreen = ({navigation, route}: Props) => {
     // COLUMN
     <View style={styles.container}>
         <Image
-        source={ require('../../../../assets/chef.jpg') } 
-        style={ styles.imageBackground }
+            source={ require('../../../../assets/chef.jpg') } 
+            style={ styles.imageBackground }
         />
 
         <View style={ styles.logoContainer }>
@@ -58,7 +58,7 @@ export const HomeScreen = ({navigation, route}: Props) => {
 
         <View style={ styles.form }>
 
-            <Text style={ styles.formText }>ENTRAR</Text>
+            <Text style={ styles.formText }>ENTRAR:</Text>
             
             <CustomTextInput 
                 image={ require('../../../../assets/email.png') }

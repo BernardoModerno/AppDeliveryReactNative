@@ -1,6 +1,10 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image } from 'react-native';
-import { AdminCategoryListScreen } from '../views/admin/category/list/CategoryList';
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import {
+  AdminCategoryListScreen,
+} from '../views/admin/category/list/CategoryList';
 import { AdminOrderListScreen } from '../views/admin/order/list/OrderList';
 import { ProfileInfoScreen } from '../views/profile/info/ProfileInfo';
 
@@ -46,6 +50,7 @@ export const AdminTabsNavigator = () => {
         options={{
           title: 'Perfil',
           tabBarLabel: 'Perfil',
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <Image
               source={ require('../../../assets/user_menu.png') }

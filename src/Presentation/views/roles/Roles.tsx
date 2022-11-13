@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
-import { View, Text, FlatList, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+
+import {
+  Dimensions,
+  View,
+} from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Carousel from 'react-native-reanimated-carousel';
+
+import { StackScreenProps } from '@react-navigation/stack';
+
+import { RootStackParamList } from '../../../../App';
 import { RolesItem } from './Item';
 import useViewModel from './ViewModel';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../../../../App';
 
 interface Props extends StackScreenProps<RootStackParamList, 'RolesScreen'>{};
 
