@@ -10,9 +10,9 @@ import {
 
 import { StackScreenProps } from '@react-navigation/stack';
 
-import { RootStackParamList } from '../../../../App';
 import { CustomTextInput } from '../../components/CustomTextInput';
 import { RoundedButton } from '../../components/RoundedButton';
+import { RootStackParamList } from '../../navigator/MainStackNavigator';
 import styles from './Styles';
 import useViewModel from './ViewModel';
 

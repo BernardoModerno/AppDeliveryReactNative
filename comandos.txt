@@ -14,4 +14,5 @@ npm install react-native-reanimated-carousel
 npm install --save react-native-gesture-handler
 npm install react-native-reanimated
 npm i @react-navigation/bottom-tabs
+npx expo start -c
 

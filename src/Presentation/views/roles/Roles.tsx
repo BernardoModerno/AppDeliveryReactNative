@@ -9,7 +9,7 @@ import Carousel from 'react-native-reanimated-carousel';
 
 import { StackScreenProps } from '@react-navigation/stack';
 
-import { RootStackParamList } from '../../../../App';
+import { RootStackParamList } from '../../navigator/MainStackNavigator';
 import { RolesItem } from './Item';
 import useViewModel from './ViewModel';
 

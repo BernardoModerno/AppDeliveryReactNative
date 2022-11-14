@@ -18,9 +18,9 @@ import { useUserLocal } from '../../../hooks/useUserLocal';
 
 const ProfileUpdateViewModel = (user: User) => {
 
+    const [values, setValues] = useState(user);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [values, setValues] = useState(user);
     const [loading, setLoading] = useState(false);
     const [file, setFile] = useState<ImagePicker.ImageInfo>()
     const { getUserSession } = useUserLocal();

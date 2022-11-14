@@ -10,8 +10,8 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { RootStackParamList } from '../../../../../App';
 import { RoundedButton } from '../../../components/RoundedButton';
+import { RootStackParamList } from '../../../navigator/MainStackNavigator';
 import styles from './Styles';
 import useViewModel from './ViewModel';
 
@@ -77,7 +77,7 @@ export const ProfileInfoScreen = () => {
               />
               <View style={ styles.formContent }>
                 <Text>{ user?.email }</Text>
-                <Text style={ styles.formTextDescription }>Rmail</Text>
+                <Text style={ styles.formTextDescription }>Email</Text>
               </View>
             </View>
 

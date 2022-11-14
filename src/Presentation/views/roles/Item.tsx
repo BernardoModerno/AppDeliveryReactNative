@@ -10,8 +10,8 @@ import {
 
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { RootStackParamList } from '../../../../App';
 import { Rol } from '../../../Domain/entities/Rol';
+import { RootStackParamList } from '../../navigator/MainStackNavigator';
 import { MyColors } from '../../theme/AppTheme';
 
 interface Props {
