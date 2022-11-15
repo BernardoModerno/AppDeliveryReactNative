@@ -25,7 +25,7 @@ export const RolesItem = ({rol, height, width, navigation}: Props) => {
   return (
     <TouchableOpacity
         onPress={ () => {
-            if (rol.name == 'ADMIN') {
+            if (rol.name == 'RESTAURANTE') {
                 navigation.replace('AdminTabsNavigator');
             }
             else if (rol.name == 'CLIENTE') {

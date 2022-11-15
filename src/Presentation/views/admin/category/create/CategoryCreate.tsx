@@ -54,7 +54,7 @@ export const AdminCategoryCreateScreen = () => {
 
         <View style={ styles.form }>
             <CustomTextInput 
-                placeholder='Nombre de la categoria'
+                placeholder='Nome da categoria'
                 image={ require('../../../../../../assets/categories.png')}
                 keyboardType='default'
                 property='name'
@@ -62,7 +62,7 @@ export const AdminCategoryCreateScreen = () => {
                 onChangeText={ onChange }
             />
             <CustomTextInput 
-                placeholder='Descripcion'
+                placeholder='Descrição'
                 image={ require('../../../../../../assets/description.png')}
                 keyboardType='default'
                 property='description'
